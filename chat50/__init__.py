@@ -1,6 +1,6 @@
 import os
 from flask import Flask, render_template
-
+from flask_cors import CORS
 
 def create_app():
     # create and configure the app
@@ -12,6 +12,7 @@ def create_app():
     from .websocket import socketio
     db.init_app(app)
     socketio.init_app(app)
+    CORS(app)
 
     # Blueprints
     app.register_blueprint(websocket.bp)
