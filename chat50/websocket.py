@@ -1,6 +1,5 @@
 from flask import Blueprint, current_app
 from flask_socketio import SocketIO, emit, send
-from werkzeug.security import check_password_hash, generate_password_hash
 
 from .models import Message, db
 

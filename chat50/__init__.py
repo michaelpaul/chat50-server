@@ -15,7 +15,9 @@ def create_app():
     CORS(app)
 
     # Blueprints
+    from . import api 
     app.register_blueprint(websocket.bp)
+    app.register_blueprint(api.bp)
 
     # CLI
     app.cli.add_command(models.init_db_command)
