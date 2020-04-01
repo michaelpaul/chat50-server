@@ -9,3 +9,7 @@ class Config:
     SECRET_KEY = os.getenv('SECRET_KEY')
     SQLALCHEMY_DATABASE_URI = os.getenv('SQLALCHEMY_DATABASE_URI')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    # API Auth 
+    AUTH0_DOMAIN = os.getenv("AUTH0_DOMAIN")
+    API_IDENTIFIER = os.getenv("API_IDENTIFIER")
+    JWT_ALGORITHMS = ["RS256"]
