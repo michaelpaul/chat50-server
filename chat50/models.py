@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import click
 from flask.cli import with_appcontext
 from flask_sqlalchemy import SQLAlchemy
@@ -7,13 +9,11 @@ db = SQLAlchemy()
 
 class Message(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    body = db.Column(db.String(120), nullable=False)
-
-
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True, nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
+    author_id = db.Column(db.String(64), nullable=False)
+    channel = db.Column(db.String(64), nullable=False)
+    body = db.Column(db.Text, nullable=False)
+    created_at = db.Column(db.DateTime, nullable=False,
+                           default=datetime.utcnow)
 
 
 @click.command('init-db')
