@@ -1,8 +1,11 @@
+import json
+from urllib.request import urlopen, Request
 from flask import _request_ctx_stack
 from flask import Blueprint, current_app, jsonify, request, g
+from dateutil.parser import isoparse
 
-from .auth import AuthError, requires_auth
-from .models import Message, db
+from .auth import AuthError, requires_auth, get_token_auth_header
+from .models import User, Message, db
 from .websocket import socketio
 
 bp = Blueprint('api', __name__, url_prefix='/api')
@@ -38,6 +41,37 @@ def handle_api_error(error):
     return response
 
 
+@bp.route('/login', methods=['POST'])
+@requires_auth
+def login():
+    # fetch profile from Auth0
+    token = get_token_auth_header()
+    url = 'https://' + current_app.config['AUTH0_DOMAIN'] + '/userinfo'
+    req = Request(url, headers={
+        'Authorization': 'Bearer ' + token,
+        'Content-Type': 'application/json'
+    })
+    res = urlopen(req)
+    profile = json.loads(res.read())
+
+    # create/update user
+    user = User.query.filter_by(sub=profile['sub']).one_or_none()
+    if user is None:
+        user = User(sub=profile['sub'], nickname=profile['nickname'])
+
+    user.email = profile['email']
+    user.name = profile['name']
+    user.picture = profile['picture']
+    user.updated_at = isoparse(profile['updated_at'])
+
+    db.session.add(user)
+    db.session.commit()
+
+    return jsonify({
+        'id': user.id
+    })
+
+
 @bp.route('/channels', methods=['GET'])
 def get_channels():
     return jsonify([{'key': str(x), 'name': f'Week {x}'} for x in range(9)])
@@ -48,8 +82,8 @@ def get_messages(channel):
     messages = Message.query.filter_by(channel=channel).all()
     return jsonify([
         {
-            'author': "Cloud",
-            'avatar': "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
+            'author': message.user.nickname,
+            'avatar': message.user.picture,
             'body': message.body,
             'datetime': message.created_at
         } for message in messages
@@ -71,7 +105,9 @@ def post_message():
     if not body:
         raise ApiError('Empty message')
 
-    msg = Message(author_id=user['sub'], channel=channel, body=body)
+    author = User.query.filter_by(sub=user['sub']).one()
+    msg = Message(user=author, channel=channel, body=body)
+
     db.session.add(msg)
     db.session.commit()
 

@@ -16,6 +16,7 @@ flask-sqlalchemy = "*"
 python-dotenv = "*"
 flask-cors = "*"
 python-jose = "*"
+python-dateutil = "*"
 
 [requires]
 python_version = "3.7"

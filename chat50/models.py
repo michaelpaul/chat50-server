@@ -9,10 +9,24 @@ db = SQLAlchemy()
 
 class Message(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    author_id = db.Column(db.String(64), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user = db.relationship('User', backref=db.backref('messages', lazy=True))
     channel = db.Column(db.String(64), nullable=False)
     body = db.Column(db.Text, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False,
+                           default=datetime.utcnow)
+
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    sub = db.Column(db.String(64), unique=True, nullable=False)
+    nickname = db.Column(db.String(128), unique=True, nullable=False)
+    name = db.Column(db.String(128), nullable=False)
+    email = db.Column(db.String(128), nullable=False)
+    picture = db.Column(db.String(255), nullable=False)
+    created_at = db.Column(db.DateTime, nullable=False,
+                           default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, nullable=False,
                            default=datetime.utcnow)
 
 
