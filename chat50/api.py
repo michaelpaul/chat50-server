@@ -102,5 +102,5 @@ def post_message():
     db.session.add(msg)
     db.session.commit()
 
-    socketio.emit('chat50.message', msg.to_json())
+    socketio.emit('chat50.message', msg.to_json(), room=msg.channel)
     return jsonify({'id': msg.id})
