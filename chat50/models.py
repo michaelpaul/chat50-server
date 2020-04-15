@@ -16,6 +16,15 @@ class Message(db.Model):
     created_at = db.Column(db.DateTime, nullable=False,
                            default=datetime.utcnow)
 
+    def to_json(self):
+        return {
+            'channel': self.channel,
+            'author': self.user.nickname,
+            'avatar': self.user.picture,
+            'body': self.body,
+            'datetime': self.created_at.isoformat() + 'Z'
+        }
+
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)

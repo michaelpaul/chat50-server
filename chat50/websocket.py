@@ -4,7 +4,7 @@ from flask_socketio import SocketIO, emit, send
 from .models import Message, db
 
 bp = Blueprint('websocket', __name__)
-socketio = SocketIO(async_mode='eventlet')
+socketio = SocketIO(async_mode='eventlet', cors_allowed_origins=['http://localhost:3000'])
 
 
 @socketio.on('chat message')

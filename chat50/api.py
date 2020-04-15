@@ -67,9 +67,7 @@ def login():
     db.session.add(user)
     db.session.commit()
 
-    return jsonify({
-        'id': user.id
-    })
+    return jsonify({'id': user.id})
 
 
 @bp.route('/channels', methods=['GET'])
@@ -80,14 +78,7 @@ def get_channels():
 @bp.route('/messages/<channel>', methods=['GET'])
 def get_messages(channel):
     messages = Message.query.filter_by(channel=channel).all()
-    return jsonify([
-        {
-            'author': message.user.nickname,
-            'avatar': message.user.picture,
-            'body': message.body,
-            'datetime': message.created_at
-        } for message in messages
-    ])
+    return jsonify([message.to_json() for message in messages])
 
 
 @bp.route('/messages', methods=['POST'])
@@ -111,6 +102,5 @@ def post_message():
     db.session.add(msg)
     db.session.commit()
 
-    response = {'id': msg.id}
-    socketio.emit('chat50.message', response)
-    return jsonify(response)
+    socketio.emit('chat50.message', msg.to_json())
+    return jsonify({'id': msg.id})
