@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template
+from flask import Flask
 from flask_cors import CORS
 
 def create_app():
@@ -21,10 +21,5 @@ def create_app():
 
     # CLI
     app.cli.add_command(models.init_db_command)
-
-    # Client
-    @app.route('/')
-    def index():
-        return render_template('index.html')
 
     return app
