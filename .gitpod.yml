@@ -1,0 +1,3 @@
+tasks:
+  - init: pipenv install
+    command: pipenv run ./run.py
