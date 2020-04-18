@@ -1,3 +1,7 @@
 tasks:
   - init: pipenv install
     command: pipenv run ./run.py
+  - command: pipenv shell
+ports:
+  - port: 5000
+    onOpen: ignore
