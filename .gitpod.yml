@@ -1,0 +1,8 @@
+tasks:
+  - init: pipenv install
+    command: pipenv run ./run.py
+  - command: echo "Waiting venv creation..." && sleep 10 && pipenv shell
+    openMode: split-right
+ports:
+  - port: 5000
+    onOpen: ignore
