@@ -1,5 +1,5 @@
 tasks:
-  - init: pipenv install
+  - init: cp .env-sample .env && pipenv install --dev && pipenv run flask init-db
     command: pipenv run ./run.py
   - command: echo "Waiting venv creation..." && sleep 10 && pipenv shell
     openMode: split-right

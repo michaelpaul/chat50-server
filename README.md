@@ -1,14 +1,5 @@
 [![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/michaelpaul/chat50-server) 
 
-# Running
+# Chat50 Server
 
-```bash
-pipenv shell
-./run.py
-```
-
-Delete Python cache files:
-
-```
-find . -name *.pyc -delete
-```
+A Python chat server using Flask and Socket.IO.
