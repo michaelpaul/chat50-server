@@ -40,12 +40,14 @@ def handle_api_error(error):
     response.status_code = error.status_code
     return response
 
+
 @bp.app_errorhandler(404)
 def handle_not_found(error):
     return {
         'code': 404,
         'description': error.description
     }, 404
+
 
 @bp.route('/login', methods=['POST'])
 @requires_auth
@@ -83,8 +85,10 @@ def get_channels():
 
 @bp.route('/messages/<channel>', methods=['GET'])
 def get_messages(channel):
-    messages = Message.query.filter_by(channel=channel).all()
-    return jsonify([message.to_json() for message in messages])
+    messages = Message.query.filter_by(channel=channel).\
+        order_by(Message.id.desc()).\
+        limit(20)
+    return jsonify([message.to_json() for message in reversed(messages.all())])
 
 
 @bp.route('/messages', methods=['POST'])

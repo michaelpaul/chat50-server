@@ -11,7 +11,7 @@ class Message(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     user = db.relationship('User', backref=db.backref('messages', lazy=True))
-    channel = db.Column(db.String(64), nullable=False)
+    channel = db.Column(db.String(64), nullable=False, index=True)
     body = db.Column(db.Text, nullable=False)
     created_at = db.Column(db.DateTime, nullable=False,
                            default=datetime.utcnow)
@@ -43,6 +43,5 @@ class User(db.Model):
 @with_appcontext
 def init_db_command():
     """Clear the existing data and create new tables."""
-    db.drop_all()
     db.create_all()
     click.echo('Initialized the database.')
