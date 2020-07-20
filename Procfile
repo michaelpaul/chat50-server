@@ -1,1 +1,1 @@
-web: gunicorn --worker-class eventlet -w 1 -b ':5000' --log-file - 'chat50:create_app()'
+web: gunicorn --worker-class eventlet -w 1 -b "0.0.0.0:$PORT" --log-file - 'chat50:create_app()'
