@@ -17,6 +17,7 @@ python-dotenv = "*"
 flask-cors = "*"
 python-jose = "*"
 python-dateutil = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.7"
