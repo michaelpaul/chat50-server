@@ -10,6 +10,11 @@ class Config:
     SQLALCHEMY_DATABASE_URI = os.getenv('SQLALCHEMY_DATABASE_URI')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_ECHO = True
+    CORS_ALLOWED_ORIGINS = [
+        'http://localhost:3000',
+        'https://chat50-server.herokuapp.com'
+    ]
+
     # API Auth
     AUTH0_DOMAIN = os.getenv("AUTH0_DOMAIN")
     API_IDENTIFIER = os.getenv("API_IDENTIFIER")
