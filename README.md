@@ -10,6 +10,5 @@ Checkout the frontend at: https://github.com/michaelpaul/chat50-ui
 
 Run the commands from `.gitpod.yml` to setup the environment and then run: 
 
-```
-heroku local
-```
+- `docker-compose up` - Start backing services
+- `heroku local` - Start the app
