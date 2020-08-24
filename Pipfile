@@ -19,6 +19,8 @@ python-jose = "*"
 python-dateutil = "*"
 gunicorn = "*"
 psycopg2 = "*"
+redis = "*"
+kombu = "*"
 
 [requires]
 python_version = "3.7"

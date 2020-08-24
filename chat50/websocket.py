@@ -6,7 +6,8 @@ from .models import Message, db
 
 bp = Blueprint('websocket', __name__)
 socketio = SocketIO(async_mode='eventlet',
-                    cors_allowed_origins=Config.CORS_ALLOWED_ORIGINS)
+                    cors_allowed_origins=Config.CORS_ALLOWED_ORIGINS,
+                    message_queue=Config.REDIS_URL)
 
 
 @socketio.on('chat50.join')

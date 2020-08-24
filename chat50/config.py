@@ -7,7 +7,8 @@ load_dotenv(os.path.join(basedir, '..', '.env'))
 
 class Config:
     SECRET_KEY = os.getenv('SECRET_KEY')
-    SQLALCHEMY_DATABASE_URI = os.getenv('SQLALCHEMY_DATABASE_URI')
+    REDIS_URL = os.getenv('REDIS_URL')
+    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_ECHO = True
     CORS_ALLOWED_ORIGINS = [
