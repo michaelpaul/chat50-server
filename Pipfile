@@ -9,6 +9,7 @@ autopep8 = "*"
 rope = "*"
 
 [packages]
+chat50 = {editable = true, path = "."}
 flask-socketio = "*"
 eventlet = "*"
 flask = "*"
@@ -23,6 +24,3 @@ redis = "*"
 kombu = "*"
 pytest = "*"
 coverage = "*"
-
-[requires]
-python_version = "3.7"
