@@ -4,12 +4,14 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+chat50 = {editable = true, path = "."}
 pylint = "*"
 autopep8 = "*"
 rope = "*"
+pytest = "*"
+coverage = "*"
 
 [packages]
-chat50 = {editable = true, path = "."}
 flask-socketio = "*"
 eventlet = "*"
 flask = "*"
@@ -22,5 +24,4 @@ gunicorn = "*"
 psycopg2-binary = "*"
 redis = "*"
 kombu = "*"
-pytest = "*"
-coverage = "*"
+

@@ -1,3 +1,4 @@
+image: gitpod/workspace-postgres
 tasks:
   - init: cp .env-sample .env && pipenv install --dev && pipenv run flask init-db
     command: pipenv run ./run.py
